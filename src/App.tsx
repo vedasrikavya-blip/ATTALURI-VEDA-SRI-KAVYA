@@ -211,7 +211,13 @@ const SCENARIO_DATABASE = {
 };
 
 export default function App() {
-  const [activePage, setActivePage] = useState('landing');
+  const [onboardingStep, setOnboardingStep] = useState<'login' | 'company' | 'landing' | 'dashboard'>('login');
+  const [activePage, setActivePage] = useState('dashboard');
+  const [companyName, setCompanyName] = useState('OperateAI Global Systems Ltd.');
+  const [companyCity, setCompanyCity] = useState('Bangalore, India');
+  const [annualRevenue, setAnnualRevenue] = useState(25000000);
+  const [netProfit, setNetProfit] = useState(4500000);
+
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState<string | null>(null);
   const [strategicQuestion, setStrategicQuestion] = useState('');
@@ -276,81 +282,251 @@ export default function App() {
     }).format(val);
   };
 
+  const handleWatchDemo = () => {
+    window.open('/demo.mp4', '_blank');
+  };
+
+  const LoginPage = () => (
+    <div className="fixed inset-0 bg-slate-950 text-white flex items-center justify-center p-4 z-[200]">
+      <Background />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-slate-900/40 border border-white/10 p-8 rounded-2xl max-w-md w-full backdrop-blur-xl shadow-2xl relative z-10"
+      >
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-black tracking-tighter uppercase italic text-white mb-2">OPERATE AI</h2>
+          <p className="text-white/40 text-[10px] uppercase tracking-widest font-mono">Autonomous Enterprise Gateway</p>
+        </div>
+
+        <button 
+          onClick={handleWatchDemo}
+          className="w-full bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 py-2.5 rounded-xl font-medium transition mb-6 flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <Zap size={16} />
+          <span>✨ Watch Demo Video</span>
+        </button>
+
+        <div className="space-y-4">
+          <div className="space-y-1">
+            <label className="text-[10px] uppercase font-black text-white/30 tracking-widest">Username / Email</label>
+            <input 
+              type="text" 
+              placeholder="e.g. admin@operate.ai"
+              className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all text-sm"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] uppercase font-black text-white/30 tracking-widest">Password</label>
+            <input 
+              type="password" 
+              placeholder="••••••••"
+              className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all text-sm"
+            />
+          </div>
+          
+          <Button 
+            onClick={() => setOnboardingStep('company')}
+            className="bg-indigo-600 hover:bg-indigo-700 w-full py-6 rounded-xl font-black uppercase tracking-widest text-xs mt-2 border-none shadow-lg shadow-indigo-600/20"
+          >
+            Sign In
+          </Button>
+
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/5"></div>
+            </div>
+            <div className="relative flex justify-center text-[10px] uppercase tracking-widest">
+              <span className="bg-slate-900 px-2 text-white/30">Or Continue With</span>
+            </div>
+          </div>
+
+          <Button 
+            onClick={() => setOnboardingStep('company')}
+            variant="outline"
+            className="w-full py-6 rounded-xl font-bold border-white/10 hover:bg-white/5 transition-all text-xs flex items-center justify-center gap-2"
+          >
+            <Box size={14} /> Sign in with Google
+          </Button>
+        </div>
+      </motion.div>
+    </div>
+  );
+
+  const CompanyConfigPage = () => {
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      
+      const finalName = formData.get('companyName') as string;
+      const finalCity = formData.get('companyCity') as string;
+      const finalRevenue = formData.get('annualRevenue') as string;
+      const finalProfit = formData.get('netProfit') as string;
+
+      if (finalName) setCompanyName(finalName);
+      if (finalCity) setCompanyCity(finalCity);
+      if (finalRevenue) setAnnualRevenue(Number(finalRevenue));
+      if (finalProfit) setNetProfit(Number(finalProfit));
+
+      setOnboardingStep('landing');
+    };
+
+    return (
+      <div className="w-full min-h-screen overflow-y-auto bg-slate-950 text-white flex flex-col items-center justify-start py-12 md:py-20 px-4 relative z-[200]">
+        <Background />
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-xl w-full bg-slate-900/40 border border-white/10 p-6 md:p-8 rounded-2xl backdrop-blur-xl shadow-2xl mx-auto mb-12 relative z-10 text-center"
+        >
+          <div className="mb-8">
+            <div className="w-16 h-16 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Settings className="text-indigo-400 animate-spin-slow" size={32} />
+            </div>
+            <h2 className="text-2xl font-black tracking-tight uppercase italic text-white">Configure Your Autonomous Hub</h2>
+            <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">System Initializing...</p>
+          </div>
+
+          <form onSubmit={handleFormSubmit} className="space-y-6 text-left">
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black text-white/30 tracking-widest">Legal Company Name</label>
+              <input 
+                name="companyName"
+                type="text" 
+                defaultValue={companyName}
+                placeholder="e.g. OperateAI Global Systems Ltd."
+                className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all text-sm font-bold"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black text-white/30 tracking-widest">Primary Hub City / Country</label>
+              <input 
+                name="companyCity"
+                type="text" 
+                defaultValue={companyCity}
+                placeholder="e.g. Bangalore, India"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all text-sm font-bold"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black text-white/30 tracking-widest">Annual Revenue (₹)</label>
+              <input 
+                name="annualRevenue"
+                type="number" 
+                defaultValue={annualRevenue}
+                placeholder="e.g. 25000000"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all text-sm font-bold"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black text-white/30 tracking-widest">Net Profit (₹)</label>
+              <input 
+                name="netProfit"
+                type="number" 
+                defaultValue={netProfit}
+                placeholder="e.g. 4500000"
+                className="w-full bg-slate-950 border border-white/10 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all text-sm font-bold"
+              />
+            </div>
+
+            <button 
+              type="submit"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-xl transition duration-200 shadow-lg shadow-indigo-950/50 mt-6 cursor-pointer text-center block"
+            >
+              💾 Save Details & Initialize Nodes
+            </button>
+          </form>
+        </motion.div>
+      </div>
+    );
+  };
+
   const LandingPage = () => (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 relative">
+    <div className="w-full min-h-screen overflow-y-auto bg-slate-950 text-white flex flex-col items-center justify-start py-12 md:py-20 px-4 relative z-[150]">
+      <Background />
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="space-y-6"
+        className="space-y-6 text-center relative z-10 w-full max-w-4xl"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-4">
-          <Zap size={14} className="animate-pulse" /> The Future of Operations is Here
+        <div className="text-xs tracking-widest uppercase bg-indigo-500/10 text-indigo-400 px-4 py-1.5 rounded-full border border-indigo-500/20 mb-6 mx-auto block w-fit">
+          ⚡ THE FUTURE OF OPERATIONS IS HERE
         </div>
-        <h1 className="text-6xl md:text-[7rem] font-black tracking-tighter uppercase italic leading-[0.8]">
-          Your AI Chief <br />
-          <span className="text-indigo-400">Operating</span> Officer
+        
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight uppercase text-center max-w-4xl mx-auto text-white leading-[0.9]">
+          YOUR AI <span className="text-indigo-400">CHIEF OPERATING</span> OFFICER
         </h1>
-        <p className="max-w-2xl mx-auto text-white/50 text-lg md:text-xl font-medium leading-relaxed mt-10">
+        
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mt-6 text-base md:text-lg leading-relaxed">
           OperateAI identifies leaks, predicts stockouts, and executes complex operational strategies with 99.5% autonomous accuracy. From Insight to Action.
         </p>
         
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-16">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-12">
           <Button 
-            onClick={() => setActivePage('dashboard')}
-            className="px-12 py-8 bg-indigo-600 hover:bg-indigo-500 text-lg font-black tracking-widest uppercase transition-all hover:scale-105 shadow-[0_0_50px_rgba(79,70,229,0.4)] border-none"
+            onClick={() => {
+              setOnboardingStep('dashboard');
+              setActivePage('dashboard');
+            }}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold tracking-wide px-8 py-8 rounded-xl transition shadow-lg shadow-indigo-600/30 text-sm cursor-pointer border-none uppercase w-full md:w-auto"
           >
-            Start Interactive Demo <ArrowRight className="ml-3" />
+            Start Interactive Demo →
           </Button>
           <Button 
             variant="outline"
-            className="px-12 py-8 border-white/10 hover:bg-white/5 bg-transparent text-lg font-black tracking-widest uppercase"
+            onClick={handleWatchDemo}
+            className="border border-gray-600 hover:border-gray-400 bg-transparent text-white font-bold tracking-wide px-8 py-8 rounded-xl transition text-sm cursor-pointer uppercase w-full md:w-auto"
           >
-            Watch Video
+            Watch Demo
           </Button>
         </div>
+
+        {/* Hero Features Grid - Preserved */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full mt-16 mx-auto pb-12">
+          {[
+            { title: "Multi-Agent AI", desc: "Specialized agents for Finance, Inventory, and HR collaborating in real-time.", icon: Users },
+            { title: "Health Score", desc: "Single metric visibility into your company's operational fitness.", icon: Activity },
+            { title: "Auto-Execution", desc: "AI doesn't just suggest; it executes approved strategies automatically.", icon: ShieldCheck },
+          ].map((feature, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + i * 0.1 }}
+              className="p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-left"
+            >
+              <feature.icon className="text-indigo-400 mb-3" size={24} />
+              <h3 className="text-md font-bold mb-1 uppercase tracking-tight">{feature.title}</h3>
+              <p className="text-white/40 text-[10px] leading-relaxed uppercase tracking-wider">{feature.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <footer className="mt-10 opacity-30 text-[8px] tracking-[0.4em] uppercase flex flex-col items-center gap-3 pb-10">
+          <p>OperateAI © 2026 / All Rights Reserved</p>
+          <p className="font-bold text-indigo-400">Project Created By Veda Sri Kavya, CMR Institute of Technology</p>
+        </footer>
       </motion.div>
-
-      {/* Hero Features Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-40 max-w-6xl mx-auto">
-        {[
-          { title: "Multi-Agent AI", desc: "Specialized agents for Finance, Inventory, and HR collaborating in real-time.", icon: Users },
-          { title: "Health Score", desc: "Single metric visibility into your company's operational fitness and scalability.", icon: Activity },
-          { title: "Auto-Execution", desc: "AI doesn't just suggest; it executes approved strategies automatically.", icon: ShieldCheck },
-        ].map((feature, i) => (
-          <motion.div 
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 + i * 0.1 }}
-            className="p-8 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 text-left group hover:border-indigo-500/30 transition-all"
-          >
-            <feature.icon className="text-indigo-400 mb-4 group-hover:scale-110 transition-transform" size={32} />
-            <h3 className="text-xl font-bold mb-2 uppercase italic">{feature.title}</h3>
-            <p className="text-white/40 text-sm leading-relaxed">{feature.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Footer Attribution for Landing */}
-      <footer className="mt-40 opacity-30 text-[10px] tracking-[0.4em] uppercase flex flex-col items-center gap-3 pb-20">
-        <p>OperateAI © 2026 / All Rights Reserved</p>
-        <p className="font-bold text-indigo-400">Project Created By Veda Sri Kavya, CMR Institute of Technology</p>
-      </footer>
     </div>
   );
 
   return (
     <div className="flex min-h-screen bg-transparent text-white font-sans selection:bg-indigo-500/30 overflow-hidden">
       <Background />
-      {activePage !== 'landing' && <Sidebar activePage={activePage} onNavigate={setActivePage} />}
+      
+      {onboardingStep === 'login' && <LoginPage />}
+      {onboardingStep === 'company' && <CompanyConfigPage />}
+      {onboardingStep === 'landing' && <LandingPage />}
 
-      <main className="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
-        <AnimatePresence mode="wait">
-          {activePage === 'landing' && <LandingPage key="landing" />}
-          
-          {activePage === 'dashboard' && (
+      {onboardingStep === 'dashboard' && (
+        <>
+          <Sidebar activePage={activePage} onNavigate={setActivePage} />
+
+          <main className="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
+            <AnimatePresence mode="wait">
+              {activePage === 'dashboard' && (
             <motion.div
               key="dashboard"
               initial={{ opacity: 0, y: 20 }}
@@ -379,8 +555,8 @@ export default function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: 'Annual Revenue', value: 25000000, sub: '+12.5% vs LY', icon: TrendingUp, color: 'emerald' },
-                  { label: 'Net Profit', value: 4500000, sub: '₹8,20,000 saved by AI', icon: DollarSign, color: 'indigo' },
+                  { label: 'Annual Revenue', value: annualRevenue, sub: '+12.5% vs LY', icon: TrendingUp, color: 'emerald' },
+                  { label: 'Net Profit', value: netProfit, sub: '₹8,20,000 saved by AI', icon: DollarSign, color: 'indigo' },
                   { label: 'Operating Costs', value: 12500000, sub: 'Optimized by 8%', icon: Zap, color: 'amber' },
                   { label: 'Pending Approvals', value: 14, sub: '3 High Priority', icon: AlertTriangle, color: 'red' },
                 ].map((kpi, i) => (
@@ -579,6 +755,19 @@ export default function App() {
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+
+              {/* Business Report Action */}
+              <div className="flex justify-center">
+                <a 
+                  href="/business_report.pdf"   
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="mt-8 mx-auto flex items-center gap-2 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 hover:text-indigo-300 border border-indigo-500/20 px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg shadow-indigo-950/50 cursor-pointer w-fit"
+                >
+                  <FileText size={18} />
+                  <span>📄 View Full Business Report PDF</span>
+                </a>
               </div>
             </motion.div>
           )}
@@ -961,11 +1150,11 @@ export default function App() {
                   <CardContent className="space-y-4">
                      <div className="space-y-1">
                        <label className="text-[10px] uppercase font-black text-white/30 tracking-[0.2em]">Legal Name</label>
-                       <p className="text-sm font-bold bg-white/5 p-3 rounded-lg border border-white/5">OperateAI Global Systems Ltd.</p>
+                       <p className="text-sm font-bold bg-white/5 p-3 rounded-lg border border-white/5">{companyName}</p>
                      </div>
                      <div className="space-y-1">
                        <label className="text-[10px] uppercase font-black text-white/30 tracking-[0.2em]">Primary Hub</label>
-                       <p className="text-sm font-bold bg-white/5 p-3 rounded-lg border border-white/5">Bangalore, India</p>
+                       <p className="text-sm font-bold bg-white/5 p-3 rounded-lg border border-white/5">{companyCity}</p>
                      </div>
                      <Button variant="outline" className="w-full mt-4 border-white/10 hover:bg-white/5 transition-all uppercase tracking-widest font-bold text-[10px] py-6">
                        Update Entity Details
@@ -1066,6 +1255,8 @@ export default function App() {
            </p>
         </div>
       </main>
+    </>
+    )}
     </div>
   );
 }
