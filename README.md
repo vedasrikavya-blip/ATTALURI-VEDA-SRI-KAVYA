@@ -179,65 +179,74 @@ Also generate a professional README.md with:
 • Future improvements
 • Live demo
 
-7. 🔄 OPERATE AI WORKING FLOWCHART
+              ## 🔄 How Operate AI Works
 
-Create a clear, visually impressive animated flowchart showing how Operate AI works:
+```mermaid
+flowchart TD
 
-                 ┌──────────────────┐
-                 │  BUSINESS DATA   │
-                 └────────┬─────────┘
-                          ↓
-                 ┌──────────────────┐
-                 │   AI ANALYSIS    │
-                 └────────┬─────────┘
-                          ↓
-              ┌───────────────────────┐
-              │   MULTI-AGENT SYSTEM  │
-              └───────────┬───────────┘
-                          ↓
-       ┌──────────────────┼──────────────────┐
-       ↓                  ↓                  ↓
-┌────────────┐      ┌────────────┐     ┌────────────┐
-│ 💰 FINANCE │      │ 📦 INVENTORY│     │ 👥 HR      │
-│   AGENT    │      │   AGENT    │     │   AGENT    │
-└──────┬─────┘      └──────┬─────┘     └──────┬─────┘
-       │                   │                  │
-       └───────────────────┼──────────────────┘
-                           ↓
-                 ┌──────────────────┐
-                 │   COLLABORATION  │
-                 └────────┬─────────┘
-                          ↓
-                 ┌──────────────────┐
-                 │ ⚠ RISK DETECTION │
-                 └────────┬─────────┘
-                          ↓
-                 ┌──────────────────┐
-                 │  DECISION ENGINE │
-                 └────────┬─────────┘
-                          ↓
-                 ┌──────────────────┐
-                 │     APPROVAL     │
-                 └────────┬─────────┘
-                          ↓
-                 ┌──────────────────┐
-                 │ ⚡ AUTO EXECUTION │
-                 └────────┬─────────┘
-                          ↓
-                 ┌──────────────────┐
-                 │   MONITORING     │
-                 └────────┬─────────┘
-                          ↓
-                 ┌──────────────────┐
-                 │ 🧠 PERSISTENT     │
-                 │     MEMORY       │
-                 └────────┬─────────┘
-                          │
-                          │  LEARNING LOOP
-                          ↺
-                  SMARTER AI DECISIONS
+    A["📥 BUSINESS SIGNALS<br/>Data • Events • KPIs"]
 
-Final tagline:
+    B["🧠 OPERATE AI COO<br/>Analyze & Understand"]
+
+    C["🤖 MULTI-AGENT NETWORK"]
+
+    D["💰 FINANCE AGENT"]
+    E["📦 INVENTORY AGENT"]
+    F["👥 HR AGENT"]
+
+    G["🤝 AGENT COLLABORATION<br/>Share Insights"]
+
+    H["⚠️ DETECT & PREDICT<br/>Risks & Opportunities"]
+
+    I["🎯 AI STRATEGY<br/>Decision Generation"]
+
+    J["⚡ EXECUTE<br/>Approved Actions"]
+
+    K["📊 MONITOR RESULTS<br/>Measure Outcomes"]
+
+    L["🧠 MEMORY + HINDSIGHT<br/>Learn from Outcomes"]
+
+    M["🔄 SMARTER FUTURE DECISIONS"]
+
+    A --> B
+    B --> C
+
+    C --> D
+    C --> E
+    C --> F
+
+    D <--> E
+    E <--> F
+    F <--> D
+
+    D --> G
+    E --> G
+    F --> G
+
+    G --> H
+    H --> I
+    I --> J
+    J --> K
+    K --> L
+    L --> M
+
+    M -. Continuous Learning .-> B
+
+    style A fill:#111827,stroke:#6366F1,color:#ffffff
+    style B fill:#312E81,stroke:#8B5CF6,color:#ffffff,stroke-width:3px
+    style C fill:#1E1B4B,stroke:#8B5CF6,color:#ffffff
+
+    style D fill:#172554,stroke:#3B82F6,color:#ffffff
+    style E fill:#172554,stroke:#3B82F6,color:#ffffff
+    style F fill:#172554,stroke:#3B82F6,color:#ffffff
+
+    style G fill:#4C1D95,stroke:#A855F7,color:#ffffff,stroke-width:3px
+    style H fill:#7F1D1D,stroke:#EF4444,color:#ffffff
+    style I fill:#312E81,stroke:#8B5CF6,color:#ffffff
+    style J fill:#1E3A8A,stroke:#60A5FA,color:#ffffff,stroke-width:3px
+    style K fill:#1E1B4B,stroke:#818CF8,color:#ffffff
+    style L fill:#4C1D95,stroke:#C084FC,color:#ffffff,stroke-width:3px
+    style M fill:#312E81,stroke:#8B5CF6,color:#ffffff
 
  OPERATE AI
 
