@@ -32,6 +32,7 @@ The system should remember:
 • Past risks
 • Outcomes
 • Successful and failed strategies
+demo video link: https://drive.google.com/file/d/1lwStlBtaBBSx8_87LD2G6ci4oKBAsae-/view?usp=sharing
 
 Show a continuous learning loop:
 
