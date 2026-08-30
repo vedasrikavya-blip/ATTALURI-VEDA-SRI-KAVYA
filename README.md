@@ -17,7 +17,7 @@ Use the uploaded screenshots as visual inspiration.
 
 KEY FEATURES:
 
-1. 🤖 MULTI-AGENT AI
+1.MULTI-AGENT AI
 Create three specialized agents:
 • Finance Agent — revenue, expenses, profitability, financial risks
 • Inventory Agent — stock monitoring, stockout prediction, optimization
@@ -25,7 +25,7 @@ Create three specialized agents:
 
 The agents must collaborate with each other in real time, not work independently.
 
-2. 🧠 PERSISTENT MEMORY WITH HINDSIGHT
+2. PERSISTENT MEMORY WITH HINDSIGHT
 The system should remember:
 • Previous decisions
 • Business context
@@ -37,7 +37,7 @@ Show a continuous learning loop:
 
 Decision → Outcome → Memory → Smarter Future Decision ↺
 
-3. ⚡ AUTONOMOUS EXECUTION
+3. AUTONOMOUS EXECUTION
 
 Traditional AI:
 Analyze → Recommend → Human Executes
@@ -47,7 +47,7 @@ Analyze → Detect → Collaborate → Decide → Approve → Execute → Monito
 
 Clearly show that Operate AI goes beyond recommendations and can execute approved operational strategies automatically.
 
-4. 🎬 INTERACTIVE 3D WORKING FLOWCHART — MAIN FEATURE
+4. INTERACTIVE 3D WORKING FLOWCHART — MAIN FEATURE
 
 Create an immersive 3D animated visualization showing:
 
@@ -90,7 +90,7 @@ Use:
 
 Use Three.js / React Three Fiber for the 3D visualization.
 
-5. 🏠 HERO SECTION
+5.HERO SECTION
 
 Headline:
 
@@ -106,7 +106,7 @@ Buttons:
 START INTERACTIVE DEMO →
 WATCH DEMO
 
-6. 📊 AI MISSION CONTROL DASHBOARD
+6. AI MISSION CONTROL DASHBOARD
 
 Include:
 • Business Health Score: 85/100
@@ -128,24 +128,6 @@ Inventory Agent detected stockout risk
 → Autonomous execution started
 → Outcome stored in memory
 
-7. 🧪 INTERACTIVE DEMO
-
-Create a business scenario:
-
-⚠ STOCKOUT RISK DETECTED
-Risk Probability: 87%
-
-The user can click:
-
-APPROVE & EXECUTE
-
-Then animate:
-
-✓ Inventory updated
-✓ Budget allocated
-✓ Operations notified
-✓ Strategy executed
-✓ Outcome stored in persistent memory
 
 DESIGN STYLE:
 
@@ -197,9 +179,67 @@ Also generate a professional README.md with:
 • Future improvements
 • Live demo
 
+7. 🔄 OPERATE AI WORKING FLOWCHART
+
+Create a clear, visually impressive animated flowchart showing how Operate AI works:
+
+                 ┌──────────────────┐
+                 │  BUSINESS DATA   │
+                 └────────┬─────────┘
+                          ↓
+                 ┌──────────────────┐
+                 │   AI ANALYSIS    │
+                 └────────┬─────────┘
+                          ↓
+              ┌───────────────────────┐
+              │   MULTI-AGENT SYSTEM  │
+              └───────────┬───────────┘
+                          ↓
+       ┌──────────────────┼──────────────────┐
+       ↓                  ↓                  ↓
+┌────────────┐      ┌────────────┐     ┌────────────┐
+│ 💰 FINANCE │      │ 📦 INVENTORY│     │ 👥 HR      │
+│   AGENT    │      │   AGENT    │     │   AGENT    │
+└──────┬─────┘      └──────┬─────┘     └──────┬─────┘
+       │                   │                  │
+       └───────────────────┼──────────────────┘
+                           ↓
+                 ┌──────────────────┐
+                 │   COLLABORATION  │
+                 └────────┬─────────┘
+                          ↓
+                 ┌──────────────────┐
+                 │ ⚠ RISK DETECTION │
+                 └────────┬─────────┘
+                          ↓
+                 ┌──────────────────┐
+                 │  DECISION ENGINE │
+                 └────────┬─────────┘
+                          ↓
+                 ┌──────────────────┐
+                 │     APPROVAL     │
+                 └────────┬─────────┘
+                          ↓
+                 ┌──────────────────┐
+                 │ ⚡ AUTO EXECUTION │
+                 └────────┬─────────┘
+                          ↓
+                 ┌──────────────────┐
+                 │   MONITORING     │
+                 └────────┬─────────┘
+                          ↓
+                 ┌──────────────────┐
+                 │ 🧠 PERSISTENT     │
+                 │     MEMORY       │
+                 └────────┬─────────┘
+                          │
+                          │  LEARNING LOOP
+                          ↺
+                  SMARTER AI DECISIONS
+
 Final tagline:
 
-⚡ OPERATE AI
+ OPERATE AI
 
 ANALYZE. COLLABORATE. DECIDE. EXECUTE. LEARN.
 
